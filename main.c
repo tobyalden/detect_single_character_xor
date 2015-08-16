@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+const int LINE_LENGTH = 60;
+
 int main(int argc, char *argv[])
 {
   FILE *data;
@@ -10,11 +12,18 @@ int main(int argc, char *argv[])
     fprintf(stderr, "data.txt not found\n");
     exit(1);
   }
-  int c;
 
-  while ((c = fgetc(data)) != EOF)
+  char line[LINE_LENGTH+1];
+  char c;
+  int i = 0;
+  while((c = fgetc(data)) != EOF)
   {
-    printf("%c", c);
+    line[i] = c;
+    i++;
+    if(c == '\n')
+    {
+      i = 0;
+      printf("%s", line);
+    }
   }
-  printf("\n");
 }
