@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include "single_byte_xor_cipher.h"
 
-const int LINE_LENGTH = 60;
-
 // compile with gcc main.c single_byte_xor_cipher.c -lgmp
 int main(int argc, char *argv[])
 {
@@ -15,7 +13,15 @@ int main(int argc, char *argv[])
     exit(1);
   }
 
-  char c, line[LINE_LENGTH+1], *highest_scoring;
+  char c;
+  int line_length = 0;
+  while((c = fgetc(data)) != '\n')
+  {
+    line_length++;
+  }
+  rewind(data);
+
+  char line[line_length+1], *highest_scoring;
   int i = 0;
   double high_score = 0;
 
